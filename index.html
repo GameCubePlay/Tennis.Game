@@ -3,7 +3,6 @@
 
 <canvas id="gameCanvas" width="800" height="600"></canvas>
 
-
 <script>
   var canvas;
   var canvasContext;
@@ -13,6 +12,8 @@
   var ballSpeedY = 4;
 
   var paddleY = 250;
+  var paddle2Y = 250;
+
   const PADDLE_HEIGHT = 100;
 
   function calculatesMousePos(evt) {
@@ -25,7 +26,6 @@
       y: mouseY
     };
   }
-
 
   window.onload = function() {
     console.log('called: drawEverything();');
@@ -74,6 +74,9 @@
 
     // this is left player paddle
     colorRect(0, paddleY, 10, PADDLE_HEIGHT, 'white');
+
+    // this is right player paddle
+    colorRect(canvas.width - 10, paddle2Y, 10, PADDLE_HEIGHT, 'white');
 
     // next line draws the ball
     colorCircle(ballX, ballY, 10, 'white');
