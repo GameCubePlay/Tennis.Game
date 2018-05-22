@@ -8,7 +8,12 @@
   var canvas;
   var canvasContext;
   var ballX = 50;
-  var ballXSpeddX = 10;
+  var ballY = 50;
+  var ballSpeedX = 10;
+  var ballSpeedY = 4;
+
+  var paddleY = 250;
+  const PADDLE_HEIGHT = 100;
 
   window.onload = function() {
     console.log('called: drawEverything();');
@@ -23,12 +28,20 @@
   }
 
   function moveEverything() {
-    ballX = ballX + ballXSpeddX;
+    ballX = ballX + ballSpeedX;
+    ballY = ballY + ballSpeedY;
+
     if (ballX < 0) {
-      ballXSpeddX = -ballXSpeddX;
+      ballSpeedX = -ballSpeedX;
     }
     if (ballX > canvas.width) {
-      ballXSpeddX = -ballXSpeddX;
+      ballSpeedX = -ballSpeedX;
+    }
+    if (ballY < 0) {
+      ballSpeedY = -ballSpeedY;
+    }
+    if (ballY > canvas.height) {
+      ballSpeedY = -ballSpeedY;
     }
   }
 
@@ -40,7 +53,7 @@
     colorRect(0, 210, 10, 100, 'white');
 
     // next line draws the ball
-    colorCircle(ballX, 150, 10, 'white');
+    colorCircle(ballX, ballY, 10, 'white');
 
   }
 
