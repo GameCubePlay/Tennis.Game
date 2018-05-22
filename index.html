@@ -43,8 +43,6 @@
         var mousePos = calculatesMousePos(evt);
         paddleY = mousePos.y - (PADDLE_HEIGHT / 2);
       });
-
-
   }
 
   function moveEverything() {
@@ -52,7 +50,12 @@
     ballY = ballY + ballSpeedY;
 
     if (ballX < 0) {
-      ballSpeedX = -ballSpeedX;
+      if (ballY > paddleY &&
+        ballY < paddleY + PADDLE_HEIGHT) {
+        ballSpeedX = -ballSpeedX;
+      } else {
+        ballReset();
+      }
     }
     if (ballX > canvas.width) {
       ballSpeedX = -ballSpeedX;
@@ -75,6 +78,11 @@
     // next line draws the ball
     colorCircle(ballX, ballY, 10, 'white');
 
+  }
+
+  function ballReset() {
+    ballX = canvas.width / 2;
+    ballY = canvas.height / 2;
   }
 
   function colorCircle(centerX, centerY, radius, drawColor) {
