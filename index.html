@@ -15,6 +15,18 @@
   var paddleY = 250;
   const PADDLE_HEIGHT = 100;
 
+  function calculatesMousePos(evt) {
+    var rect = canvas.getBoundingClientRect();
+    var root = document.documentElement;
+    var mouseX = evt.clientX - rect.left - root.scrollLeft;
+    var mouseY = evt.clientY - rect.top - root.scrollTop;
+    return {
+      x: mouseX,
+      y: mouseY
+    };
+  }
+
+
   window.onload = function() {
     console.log('called: drawEverything();');
     canvas = document.getElementById('gameCanvas');
@@ -25,6 +37,14 @@
       moveEverything();
       drawEverything();
     }, 1000 / framesPerSecond);
+
+    canvas.addEventListener('mousemove',
+      function(evt) {
+        var mousePos = calculatesMousePos(evt);
+        paddleY = mousePos.y - (PADDLE_HEIGHT / 2);
+      });
+
+
   }
 
   function moveEverything() {
@@ -50,7 +70,7 @@
     colorRect(0, 0, canvas.width, canvas.height, 'black');
 
     // this is left player paddle
-    colorRect(0, 210, 10, 100, 'white');
+    colorRect(0, paddleY, 10, PADDLE_HEIGHT, 'white');
 
     // next line draws the ball
     colorCircle(ballX, ballY, 10, 'white');
